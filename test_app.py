@@ -25,11 +25,8 @@ class BoggleAppTestCase(TestCase):
             response = client.get('/')
             html = response.get_data(as_text=True)
             # test that you're getting a template
-            print('**** response=', response)
-            print('**** html=', html)
             self.assertEqual(response.status_code, 200)
             self.assertIn('<title>Boggle</title>', html)
-
 
     def test_api_new_game(self):
         """Test starting a new game."""
@@ -37,8 +34,18 @@ class BoggleAppTestCase(TestCase):
         with self.client as client:
             response = client.post('/api/new-game')
 
-            # html = response.get_data(as_text=True)
-            # # write a test for this route
-            # print('**** response=', response)
-            # print('**** html=', html)
+            py_dict = response.get_json()
+            print(py_dict)
+            # id = py_dict['gameId']
+            # board = py_dict['board']
+            # games = py_dict['games']
+            # games ={....., {id:borad}}
+            # write a test for this route
+            self.assertEqual(response.status_code, 200)
+            self.assertIsInstance(py_dict['gameId'], str)
+            self.assertIsInstance(py_dict['board'], list)
+            self.assertIsInstance(py_dict['board'][0], list)
 
+            # self.assertIn('board', py_dict)
+            # print('**** pyObj=', pyObj)
+            # print('**** html=', html)

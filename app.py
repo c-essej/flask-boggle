@@ -27,8 +27,13 @@ def new_game():
     games[game_id] = game
     board = game.board
     newgame = {"gameId": game_id, "board": board}
+    # return_obj = {"gameId": game_id, "board": board, 'games': games}
+    #
 
     newgame_jsonify = jsonify(newgame)
-    print('***newgame=', newgame)
-
+    # return_obj_jsonify = jsonify(return_obj)
+    # print('***newgame=', newgame)
+    # print('***games=', games)
+    # TODO: check if the new game is in games
     return newgame_jsonify
+    # return return_obj_jsonify
