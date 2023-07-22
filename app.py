@@ -38,12 +38,23 @@ def new_game():
     return newgame_jsonify
     # return return_obj_jsonify
 
+
 @app.post("/api/score-word")
 def valid_word():
-    """check to see if the word is on the board/valid"""
-    breakpoint()
+    """check to see if the word is on the board/valid
+       get JSON {"word":"CAT", "id": "asdasd"}
+    """
+    # breakpoint()
     word = request.json['word']
     id = request.json['id']
-    game.check_word_on_board(word)
+    game = games[id]
+    word_on_board = game.check_word_on_board(word)
+    word_in_word_list = game.check_word(word)
 
-    print(request.json)
+    if not word_in_word_list:
+        return jsonify({"result": 'not-word'})
+    elif not word_on_board:
+        return jsonify({"result": "not-on-board"})
+    else:
+        game.play_and_score_word(word)
+        return jsonify({"result": "ok"})
