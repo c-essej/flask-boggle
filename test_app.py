@@ -49,3 +49,12 @@ class BoggleAppTestCase(TestCase):
             # self.assertIn('board', py_dict)
             # print('**** pyObj=', pyObj)
             # print('**** html=', html)
+
+    def test_valid_word(self):
+        """Test if word exists/valid on board"""
+
+        with self.client as client:
+            response = client.post('/api/score-word',
+                                   data={'color': 'blue'})
+
+
